@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Meses de Amor</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            padding: 40px 0;
+            background: linear-gradient(135deg, #6a0dad 0%, #4b0082 100%);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(106, 13, 173, 0.5);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            animation: shine 8s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-30%, -30%); }
+            100% { transform: rotate(30deg) translate(30%, 30%); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(to right, #e0aaff, #c77dff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(192, 132, 252, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #d8b4fe;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .heart {
+            font-size: 2rem;
+            color: #ff6b6b;
+            animation: pulse 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .photo-frame {
+            width: 250px;
+            height: 250px;
+            margin: 30px auto;
+            border: 5px solid #9d4edd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(157, 78, 221, 0.6);
+            position: relative;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .default-photo {
+            font-size: 5rem;
+            color: #9d4edd;
+        }
+
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .topic-card {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(145deg, #2a0a45, #1a052e);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(106, 13, 173, 0.4);
+        }
+
+        .topic-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(157, 78, 221, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .topic-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .topic-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #c77dff;
+        }
+
+        .topic-title {
+            font-size: 1.2rem;
+            color: #e0aaff;
+            margin-bottom: 10px;
+        }
+
+        .topic-description {
+            font-size: 0.9rem;
+            color: #9d4edd;
+            opacity: 0;
+            max-height: 0;
+            transition: opacity 0.3s, max-height 0.3s;
+        }
+
+        .topic-card:hover .topic-description {
+            opacity: 1;
+            max-height: 100px;
+        }
+
+        .message {
+            background: linear-gradient(145deg, #1a052e, #2a0a45);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border-left: 5px solid #9d4edd;
+        }
+
+        .message p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0aaff;
+        }
+
+        .countdown {
+            font-size: 1.5rem;
+            margin: 30px 0;
+            color: #d8b4fe;
+        }
+
+        .countdown span {
+            font-weight: bold;
+            color: #e0aaff;
+        }
+
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart-bg {
+            position: absolute;
+            opacity: 0.2;
+            animation: float-heart linear infinite;
+        }
+
+        @keyframes float-heart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        button {
+            background: linear-gradient(to right, #9d4edd, #7b2cbf);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(157, 78, 221, 0.6);
+        }
+
+        footer {
+            margin-top: 50px;
+            padding: 20px;
+            color: #9d4edd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .topic-card {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .topic-icon {
+                font-size: 2rem;
+            }
+            
+            .topic-title {
+                font-size: 1rem;
+              }
+            .topic-icon {
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+            
+            .topic-card {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="fireworks" id="fireworks"></div>
+    <div class="hearts-bg" id="heartsBg"></div>
+    
+    <header>
+        <div class="container">
+            <h1>5 Meses de Namoro</h1>
+            <h2>Celebrando nosso amor <span class="heart">❤</span></h2>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="photo-frame" id="photoFrame">
+            
+            <img class="default-photo" src="imagem/imagen.jpeg" alt="Foto de perfil">
+        </div>
+        
+        <div class="countdown" id="countdown">
+            Proximo aniversario de nois dois:<br> <span id="time"></span>
+        </div>
+        
+        <button id="surpriseBtn" onclick="window.location.href='flores.html'">Clique para uma surpresa!</button>
+        
+        <div class="message">
+            <p>
+                Cada dia ao seu lado é um presente que eu guardo com carinho no meu coração. 
+                Esses 5 meses foram repletos de aprendizados, risadas, momentos especiais e 
+                muito amor. Você ilumina meus dias de uma forma que ninguém mais consegue. 
+                Mal posso esperar para viver muitos outros meses e anos ao seu lado, criando 
+                memórias inesquecíveis juntos. Eu te amo mais do que as palavras podem expressar. 
+                E eu agradeço profundamente por tudo que você sempre fez por mim, por me dá amor, 
+                por me dá atenção,por me fazer feliz todos os dias, por me deixar alegre,
+                por cuidar de mim, por me da muito amor e atenção, eu me sinto muito grato por você sempre fazer seu máximo para me fazer feliz, 
+                e eu estarei com você até nosso fim meu amor, elque você nunca se esqueça que nós somos e sempre seremos juntos meu amor, e eu vou estar com você pra sempre meu amor, vou sempre cuidar de ti, sempre fazer meu máximo para você. E que você é muito especial para amimbmeu amor, você sempre cuida de eu, e eu vou sempre te encher de meu amor, você é muito especial meu amor, eu vou ficar com você até meu fim meu amor, e eu vou ficar com você meu amor
+            </p>
+         
+    
+        </div>
+        
+        
+        <h2>O Que Nos Faz Especiais</h2>
+        <p>Lembrando que voce é muito especial e não tem como descrever a perfeição que você é, ou a beleza incrivel que voce tem, mas falerei um pouco</p>
+        
+        <div class="topics">
+            <div class="topic-card">
+                <div class="topic-icon">💞</div>
+                <div class="topic-title">Nossa Conexão</div>
+                <div class="topic-description">A forma como nos entendemos sem palavras, nossos coracoes que dizem tudo. E eu sempre ficarei contigo.</div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">😂</div>
+                <div class="topic-title">Nossas Risadas</div>
+                <div class="topic-description">Os momentos engraçados que só nós entendemos, as piadas internas que nos conectam.</div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">🌌</div>
+                <div class="topic-title">Nossos Sonhos</div>
+                <div class="topic-description">As nossas metas que fazemos juntos, os lugares que queremos visitar, ter futuro ao seu lado e que construímos uma historia feliz.</div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">🤗</div>
+                <div class="topic-title">Nosso Conforto</div>
+                <div class="topic-description">A segurança que sentimos um no outro(eu espero meu amor), sua presença na minha vida, e vamos ser felizes juntos.</div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">💌</div>
+                <div class="topic-title">Nossas Mensagens</div>
+                <div class="topic-description">Aqueles textos que nos fazem sorrir durante o dia, as declarações que guardamos no coração.</div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">🎶</div>
+                <div class="topic-title">Nossa Música</div>
+                <div class="topic-description">Antes de tudo, a sua voz é a melodia mais linda do universo.Que quando toca, fazemos questão de sorrir juntos.</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            Feito com carinho, nossos sentimentos e tudo para celebrar nosso amor - 5 meses juntos!
+        </div>
+    </footer>
+
+    <script>
+        // Efeito de corações no fundo
+        function createHearts() {
+            const heartsBg = document.getElementById('heartsBg');
+            const colors = ['#ff6b6b', '#ff8e8e', '#ffb3b3', '#ffd8d8', '#ff9e9e', '#ff7676'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤';
+                    heart.classList.add('heart-bg');
+                    
+                    // Tamanho aleatório entre 20px e 50px
+                    const size = Math.random() * 30 + 20;
+                    heart.style.fontSize = `${size}px`;
+                    
+                    // Cor aleatória
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Posição horizontal aleatória
+                    heart.style.left = `${Math.random() * 100}%`;
+                    
+                    // Duração da animação entre 10s e 20s
+                    const duration = Math.random() * 10 + 10;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    // Atraso inicial aleatório
+                    heart.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    heartsBg.appendChild(heart);
+                    
+                    // Remover o coração após a animação terminar
+                    setTimeout(() => {
+                        heart.remove();
+                    }, duration * 1000);
+                }, i * 1000);
+            }
+        }
+        
+        // Criar corações continuamente
+        createHearts();
+        setInterval(createHearts, 15000);
+        
+        // Contador regressivo para o dia 15 do próximo mês
+        function updateCountdown() {
+            const now = new Date();
+            let nextMonth = now.getMonth() + 1;
+            let year = now.getFullYear();
+            
+            // Se estivermos em dezembro, o próximo mês é janeiro do próximo ano
+            if (nextMonth > 11) {
+                nextMonth = 0; // Janeiro é 0
+                year++;
+            }
+            
+            const targetDate = new Date(year, nextMonth, 15);
+            const diff = targetDate - now;
+            
+            // Calcula dias, horas, minutos e segundos
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // Formata a exibição
+            let displayText = '';
+            if (days > 0) {
+                displayText = `${days} dia${days !== 1 ? 's' : ''}`;
+                if (hours > 0) {
+                    displayText += `, ${hours} hora${hours !== 1 ? 's' : ''}`;
+                }
+            } else if (hours > 0) {
+                displayText = `${hours} hora${hours !== 1 ? 's' : ''}`;
+                if (minutes > 0) {
+                    displayText += `, ${Math.floor(minutes)} minuto${minutes !== 1 ? 's' : ''}`;
+                }
+            } else if (minutes > 0) {
+                displayText = `${Math.floor(minutes)} minuto${minutes !== 1 ? 's' : ''}`;
+                if (seconds > 0) {
+                    displayText += `, ${Math.floor(seconds)} segundo${seconds !== 1 ? 's' : ''}`;
+                }
+            } else {
+                displayText = `${Math.floor(seconds)} segundo${seconds !== 1 ? 's' : ''}`;
+            }
+            
+            document.getElementById('time').textContent = displayText;
+            
+            // Se já passou do dia 15 deste mês, mostra quando será o próximo dia 15
+            if (now.getDate() > 15) {
+                const thisMonthTarget = new Date(year, nextMonth, 15);
+                const thisMonthDiff = thisMonthTarget - now;
+                const thisMonthDays = Math.floor(thisMonthDiff / (1000 * 60 * 60 * 24));
+                
+                document.getElementById('time').textContent = `${thisMonthDays} dia${thisMonthDays !== 1 ? 's' : ''}`;
+            }
+        }
+        
+        // Efeito de fogos de artifício
+        const fireworksContainer = document.getElementById('fireworks');
+        const colors = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff'];
+        
+        function createFirework(x, y) {
+            const firework = document.createElement('div');
+            firework.style.position = 'absolute';
+            firework.style.left = x + 'px';
+            firework.style.top = y + 'px';
+            firework.style.width = '4px';
+            firework.style.height = '4px';
+            firework.style.borderRadius = '50%';
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            firework.style.boxShadow = `0 0 10px 2px ${colors[Math.floor(Math.random() * colors.length)]}`;
+            
+            fireworksContainer.appendChild(firework);
+            
+               // Animação
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 2 + Math.random() * 3;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            
+            let posX = x;
+            let posY = y;
+            let opacity = 1;
+            let size = 4;
+            
+            const animate = () => {
+                posX += vx;
+                posY += vy;
+                opacity -= 0.02;
+                size -= 0.05;
+                
+                if (opacity <= 0 || size <= 0) {
+                    fireworksContainer.removeChild(firework);
+                    return;
+                }
+                
+                firework.style.left = posX + 'px';
+                firework.style.top = posY + 'px';
+                firework.style.opacity = opacity;
+                firework.style.width = size + 'px';
+                firework.style.height = size + 'px';
+                
+                requestAnimationFrame(animate);
+            };
+            
+            animate();
+        }
+        
+        function launchFireworks() {
+            const containerWidth = window.innerWidth;
+            const containerHeight = window.innerHeight;
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * containerWidth;
+                    const y = Math.random() * containerHeight;
+                    createFirework(x, y);
+                }, i * 100);
+            }
+        }
+        
+        // Botão de surpresa
+        document.getElementById('surpriseBtn').addEventListener('click', function() {
+            launchFireworks();
+            
+            // Criar corações flutuantes
+            for (let i = 0; i < 20; i++) {
+                createFloatingHeart();
+            }
+            
+            // Mostrar mensagem especial
+          // alert("Eu te amo mais do que tudo! ❤️ Obrigado por esses 5 meses incríveis!");//
+        });
+        
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.style.position = 'fixed';
+            heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+            heart.style.color = `hsl(${Math.random() * 60 + 270}, 100%, 70%)`;
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = window.innerHeight + 'px';
+            heart.style.zIndex = '9999';
+            heart.style.pointerEvents = 'none';
+            heart.style.userSelect = 'none';
+            document.body.appendChild(heart);
+            
+            const animationDuration = 3 +Math.random() * 4;
+            const endLeft = (parseFloat(heart.style.left) - 100 + Math.random() * 200) + 'px';
+            const endTop = -50 + 'px';
+            
+            heart.animate([
+                { 
+                    top: window.innerHeight + 'px',
+                    opacity: 1
+                },
+                { 
+                    top: endTop,
+                    left: endLeft,
+                    opacity: 0
+                }
+            ], {
+                duration: animationDuration * 1000,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+            
+            setTimeout(() => {
+                document.body.removeChild(heart);
+            }, animationDuration * 1000);
+        }
+        
+        // Efeito de digitação na mensagem
+        const message = "Você é muito especial meu amorzinho muito maravilhosa meu bebê, você é uma incrível meu amor, e eu fico muito feliz por você meu amor, vou te encher de amor e carinho meu bem, que sejamos felizes para sempre meu amor, e nunca desanime de nós ou de seus sonhos meu bem, você é capaz meu amor e eu confio em seu potencial meu amor, você consegue meu amor e você é incrível meu amor. E eu agradeço profundamente por tudo que você sempre fez por mim, por me dá amor, por me dá atenção, por me fazer feliz todos os dias, por me deixar alegre, por cuidar de mim, por meu da muito amor e atenção, eu me sinto muito grato por você sempre fazer seu máximo para me fazer feliz, e eu estarei com você até nosso fim meu amor, e que você nunca se esqueça que nós somos e sempre seremos juntos meu amor, e eu vou estar com você pra sempre meu amor, vou sempre cuidar de ti, sempre fazer meu máximo para você. E que você é muito especial para meu amor, você sempre cuida de eu, e eu vou sempre te encher de meu amor, você é muito especial meu amor, eu vou ficar com você até meu fim meu amor, e eu vou ficar com você meu amor";
+        const messageElement = document.querySelector('.message p');
+        messageElement.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < message.length) {
+                messageElement.textContent += message.charAt(i);
+                i++;
+                setTimeout(typeWriter, 20);
+            }
+        }
+        
+        // Iniciar a digitação após um pequeno atraso
+        setTimeout(typeWriter, 1000);
+        
+        // Efeito de hover nos tópicos
+        const topicCards = document.querySelectorAll('.topic-card');
+        topicCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.topic-icon');
+                icon.style.transform = 'scale(1.2)';
+                icon.style.transition = 'transform 0.3s';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.topic-icon');
+                icon.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Atualiza o contador a cada segundo
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
